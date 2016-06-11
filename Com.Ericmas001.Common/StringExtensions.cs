@@ -48,6 +48,29 @@ namespace Com.Ericmas001.Common
             return info.Length <= length ? info : info.Remove(length);
         }
 
+        public static IEnumerable<string> SplitLength(this string str, int lgth)
+        {
+            if (string.IsNullOrEmpty(str))
+                return new string[0];
+
+            var nb = str.Length / lgth;
+            var res = Enumerable.Range(0, nb).Select(i => str.Substring(i * lgth, lgth)).ToList();
+
+            if (str.Length > lgth * nb)
+                res.Add(str.Substring(lgth * nb));
+
+            return res;
+        }
+        public static string ForceLength(this string str, int lgth)
+        {
+            if (str.Length > lgth)
+                return str.Remove(lgth);
+
+            if (str.Length < lgth)
+                return str.PadRight(lgth);
+
+            return str;
+        }
         public static string RemoveTags(this string s, char tagCharOpen, char tagCharClose)
         {
             // Faster than regex: http://dotnetperls.com/remove-html-tags
