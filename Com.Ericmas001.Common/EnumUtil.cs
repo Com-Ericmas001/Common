@@ -1,39 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 
 namespace Com.Ericmas001.Common
 {
-    public static class EnumUtil<T>
+    public static class EnumUtil
     {
-        public static T[] AllValues = Enum.GetValues(typeof(T)).Cast<T>().ToArray();
+        public static IEnumerable<T> AllValues<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>().ToArray();
+        }
 
-        private static Dictionary<T, Dictionary<Type, Attribute>> m_Attributes = new Dictionary<T, Dictionary<Type, Attribute>>();
+        public static T Parse<T>(string s)
+        {
+            return (T)Enum.Parse(typeof(T), s);
+        }
+        private static readonly Dictionary<Type, Dictionary<Enum, Dictionary<Type, Attribute>>> m_Attributes = new Dictionary<Type, Dictionary<Enum, Dictionary<Type, Attribute>>>();
 
-        public static TAtt GetAttribute<TAtt>(T enumerationValue)
+        public static TAtt GetAttribute<TAtt>(this Enum enumerationValue)
             where TAtt : Attribute
         {
-            if (!m_Attributes.ContainsKey(enumerationValue))
-                m_Attributes.Add(enumerationValue, new Dictionary<Type, Attribute>());
+            Type t = enumerationValue.GetType();
+            if (!m_Attributes.ContainsKey(t))
+                m_Attributes.Add(t, new Dictionary<Enum, Dictionary<Type, Attribute>>());
 
-            Type attType = typeof(TAtt);
-            if (!m_Attributes[enumerationValue].ContainsKey(attType))
+            if (!m_Attributes[t].ContainsKey(enumerationValue))
+                m_Attributes[t].Add(enumerationValue, new Dictionary<Type, Attribute>());
+
+            var attType = typeof(TAtt);
+            if (!m_Attributes[t][enumerationValue].ContainsKey(attType))
             {
-                MemberInfo[] memberInfo = typeof(T).GetMember(enumerationValue.ToString());
+                var memberInfo = t.GetMember(enumerationValue.ToString());
                 if (memberInfo.Any())
                 {
-                    object[] attrs = memberInfo[0].GetCustomAttributes(typeof(TAtt), false);
+                    var attrs = memberInfo[0].GetCustomAttributes(typeof(TAtt), false);
                     if (attrs.Any())
-                        m_Attributes[enumerationValue].Add(attType, (TAtt)attrs.First());
+                        m_Attributes[t][enumerationValue].Add(attType, (TAtt)attrs.First());
                     else
-                        m_Attributes[enumerationValue].Add(attType, null);
+                        m_Attributes[t][enumerationValue].Add(attType, null);
                 }
                 else
-                    m_Attributes[enumerationValue].Add(attType, null);
+                    m_Attributes[t][enumerationValue].Add(attType, null);
             }
-            return (TAtt)m_Attributes[enumerationValue][attType];
+            return (TAtt)m_Attributes[t][enumerationValue][attType];
         }
     }
 }
