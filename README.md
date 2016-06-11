@@ -12,7 +12,7 @@
             </td>
             <td width="46%" align="right">
                 <div class="nuget-badge">
-                    PM&gt; Install-Package om.Ericmas001.Common
+                    PM&gt; Install-Package Com.Ericmas001.Common
                 </div>
             </td>
         </tr>
