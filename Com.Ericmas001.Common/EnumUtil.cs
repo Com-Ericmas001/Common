@@ -13,7 +13,7 @@ namespace Com.Ericmas001.Common
 
         public static T Parse<T>(string s)
         {
-            return (T)Enum.Parse(typeof(T), s);
+            return (T)Enum.Parse(typeof(T), s, true);
         }
         private static readonly Dictionary<Type, Dictionary<Enum, Dictionary<Type, Attribute>>> m_Attributes = new Dictionary<Type, Dictionary<Enum, Dictionary<Type, Attribute>>>();
 
