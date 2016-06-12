@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AbbreviationAttribute.cs" />
+    <Compile Include="Attributes\PriorityAttribute.cs" />
+    <Compile Include="Attributes\ColorAttribute.cs" />
+    <Compile Include="Attributes\DisplayNameAttribute.cs" />
+    <Compile Include="Attributes\TagAttribute.cs" />
     <Compile Include="DoubleExtensions.cs" />
     <Compile Include="EnumUtil.cs" />
     <Compile Include="EventArgs.cs" />

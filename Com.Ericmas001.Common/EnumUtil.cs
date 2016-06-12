@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Com.Ericmas001.Common.Attributes;
 
 namespace Com.Ericmas001.Common
 {
@@ -9,6 +10,10 @@ namespace Com.Ericmas001.Common
         public static IEnumerable<T> AllValues<T>()
         {
             return Enum.GetValues(typeof(T)).Cast<T>().ToArray();
+        }
+        public static IEnumerable<Enum> AllValues(Type t)
+        {
+            return Enum.GetValues(t).OfType<Enum>().ToArray();
         }
 
         public static T Parse<T>(string s)
@@ -20,7 +25,7 @@ namespace Com.Ericmas001.Common
         public static TAtt GetAttribute<TAtt>(this Enum enumerationValue)
             where TAtt : Attribute
         {
-            Type t = enumerationValue.GetType();
+            var t = enumerationValue.GetType();
             if (!m_Attributes.ContainsKey(t))
                 m_Attributes.Add(t, new Dictionary<Enum, Dictionary<Type, Attribute>>());
 
@@ -43,6 +48,53 @@ namespace Com.Ericmas001.Common
                     m_Attributes[t][enumerationValue].Add(attType, null);
             }
             return (TAtt)m_Attributes[t][enumerationValue][attType];
+        }
+
+        private static readonly Dictionary<Type, Dictionary<Enum, string>> m_Abbreviations = new Dictionary<Type, Dictionary<Enum, string>>();
+        private static readonly Dictionary<Type, Dictionary<Enum, string>> m_Colors = new Dictionary<Type, Dictionary<Enum, string>>();
+        private static readonly Dictionary<Type, Dictionary<Enum, string>> m_DisplayNames = new Dictionary<Type, Dictionary<Enum, string>>();
+        private static readonly Dictionary<Type, Dictionary<Enum, string>> m_Tags = new Dictionary<Type, Dictionary<Enum, string>>();
+        private static readonly Dictionary<Type, Dictionary<Enum, int>> m_Priorities = new Dictionary<Type, Dictionary<Enum, int>>();
+
+        public static string Abbreviation(this Enum e)
+        {
+            var t = e.GetType();
+            if (!m_Abbreviations.ContainsKey(t))
+                m_Abbreviations.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<AbbreviationAttribute>().Abbreviation));
+
+            return !m_Abbreviations[t].ContainsKey(e) ? null : m_Abbreviations[t][e];
+        }
+        public static string Color(this Enum e)
+        {
+            var t = e.GetType();
+            if (!m_Colors.ContainsKey(t))
+                m_Colors.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<ColorAttribute>().Color));
+
+            return !m_Colors[t].ContainsKey(e) ? null : m_Colors[t][e];
+        }
+        public static string DisplayName(this Enum e)
+        {
+            var t = e.GetType();
+            if (!m_DisplayNames.ContainsKey(t))
+                m_DisplayNames.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<DisplayNameAttribute>().DisplayName));
+
+            return !m_DisplayNames[t].ContainsKey(e) ? e.ToString() : m_DisplayNames[t][e];
+        }
+        public static string Tag(this Enum e)
+        {
+            var t = e.GetType();
+            if (!m_Tags.ContainsKey(t))
+                m_Tags.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<TagAttribute>().Tag));
+
+            return !m_Tags[t].ContainsKey(e) ? null : m_Tags[t][e];
+        }
+        public static int Priority(this Enum e)
+        {
+            var t = e.GetType();
+            if (!m_Priorities.ContainsKey(t))
+                m_Priorities.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<PriorityAttribute>().Priority));
+
+            return !m_Priorities[t].ContainsKey(e) ? 0 : m_Priorities[t][e];
         }
     }
 }
