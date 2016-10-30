@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AbbreviationAttribute.cs" />
+    <Compile Include="Attributes\FrDisplayNameAttribute.cs" />
     <Compile Include="Attributes\PriorityAttribute.cs" />
     <Compile Include="Attributes\ColorAttribute.cs" />
     <Compile Include="Attributes\DisplayNameAttribute.cs" />

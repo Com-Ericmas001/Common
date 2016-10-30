@@ -53,6 +53,7 @@ namespace Com.Ericmas001.Common
         private static readonly Dictionary<Type, Dictionary<Enum, string>> m_Abbreviations = new Dictionary<Type, Dictionary<Enum, string>>();
         private static readonly Dictionary<Type, Dictionary<Enum, string>> m_Colors = new Dictionary<Type, Dictionary<Enum, string>>();
         private static readonly Dictionary<Type, Dictionary<Enum, string>> m_DisplayNames = new Dictionary<Type, Dictionary<Enum, string>>();
+        private static readonly Dictionary<Type, Dictionary<Enum, string>> m_FrDisplayNames = new Dictionary<Type, Dictionary<Enum, string>>();
         private static readonly Dictionary<Type, Dictionary<Enum, string>> m_Tags = new Dictionary<Type, Dictionary<Enum, string>>();
         private static readonly Dictionary<Type, Dictionary<Enum, int>> m_Priorities = new Dictionary<Type, Dictionary<Enum, int>>();
 
@@ -60,7 +61,7 @@ namespace Com.Ericmas001.Common
         {
             var t = e.GetType();
             if (!m_Abbreviations.ContainsKey(t))
-                m_Abbreviations.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<AbbreviationAttribute>().Abbreviation));
+                m_Abbreviations.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<AbbreviationAttribute>()?.Abbreviation));
 
             return !m_Abbreviations[t].ContainsKey(e) ? null : m_Abbreviations[t][e];
         }
@@ -68,7 +69,7 @@ namespace Com.Ericmas001.Common
         {
             var t = e.GetType();
             if (!m_Colors.ContainsKey(t))
-                m_Colors.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<ColorAttribute>().Color));
+                m_Colors.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<ColorAttribute>()?.Color));
 
             return !m_Colors[t].ContainsKey(e) ? null : m_Colors[t][e];
         }
@@ -76,15 +77,23 @@ namespace Com.Ericmas001.Common
         {
             var t = e.GetType();
             if (!m_DisplayNames.ContainsKey(t))
-                m_DisplayNames.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<DisplayNameAttribute>().DisplayName));
+                m_DisplayNames.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<DisplayNameAttribute>()?.DisplayName ?? x.ToString()));
 
             return !m_DisplayNames[t].ContainsKey(e) ? e.ToString() : m_DisplayNames[t][e];
+        }
+        public static string DisplayNameFr(this Enum e)
+        {
+            var t = e.GetType();
+            if (!m_FrDisplayNames.ContainsKey(t))
+                m_FrDisplayNames.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<FrDisplayNameAttribute>()?.DisplayName ?? x.DisplayName()));
+
+            return !m_FrDisplayNames[t].ContainsKey(e) ? e.DisplayName() : m_FrDisplayNames[t][e];
         }
         public static string Tag(this Enum e)
         {
             var t = e.GetType();
             if (!m_Tags.ContainsKey(t))
-                m_Tags.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<TagAttribute>().Tag));
+                m_Tags.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<TagAttribute>()?.Tag));
 
             return !m_Tags[t].ContainsKey(e) ? null : m_Tags[t][e];
         }
@@ -92,7 +101,7 @@ namespace Com.Ericmas001.Common
         {
             var t = e.GetType();
             if (!m_Priorities.ContainsKey(t))
-                m_Priorities.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<PriorityAttribute>().Priority));
+                m_Priorities.Add(t, AllValues(e.GetType()).ToDictionary(x => x, x => x.GetAttribute<PriorityAttribute>()?.Priority ?? 0));
 
             return !m_Priorities[t].ContainsKey(e) ? 0 : m_Priorities[t][e];
         }
