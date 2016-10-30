@@ -35,7 +35,7 @@ namespace Com.Ericmas001.Common
             var attType = typeof(TAtt);
             if (!m_Attributes[t][enumerationValue].ContainsKey(attType))
             {
-                var memberInfo = t.GetMember(enumerationValue.ToString());
+                var memberInfo = t.GetMember(enumerationValue.ToString()).Where(x => x.DeclaringType == t).ToArray();
                 if (memberInfo.Any())
                 {
                     var attrs = memberInfo[0].GetCustomAttributes(typeof(TAtt), false);
