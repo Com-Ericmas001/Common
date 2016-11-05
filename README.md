@@ -1,7 +1,7 @@
 # Com.Ericmas001.Common
 
 
-###Current Version: 0.2.0 *(2015-06-11)*
+###Current Version: 0.4.0 *(2015-10-30)*
 <table align="center" width="100%">
     <tbody>
         <tr>
