@@ -1,5 +1,5 @@
 # Com.Ericmas001.Common
-
+[![Build Status](https://travis-ci.org/Com-Ericmas001/Common.svg?branch=master)](https://travis-ci.org/Com-Ericmas001/Common)
 
 ###Current Version: 0.4.1 *(2016-11-08)*
 <table align="center" width="100%">
