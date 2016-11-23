@@ -14,6 +14,7 @@ if "%nuget%" == "" (
 	set nuget=nuget
 )
 
+call %NuGet% restore Common.sln -NonInteractive
 msbuild Common.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=diag /nr:false
 
 mkdir Build
