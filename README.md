@@ -1,6 +1,6 @@
 # Com.Ericmas001.Common
 [![Build Status](https://travis-ci.org/Com-Ericmas001/Common.svg?branch=master)](https://travis-ci.org/Com-Ericmas001/Common)
-[![com-ericmas001 MyGet Build Status](https://www.myget.org/BuildSource/Badge/com-ericmas001?identifier=46d6016e-dac0-4f9e-bae8-2b337ac8967e)](https://www.myget.org/) 
+[![com-ericmas001 MyGet Build Status](https://www.myget.org/BuildSource/Badge/com-ericmas001?identifier=46d6016e-dac0-4f9e-bae8-2b337ac8967e)](https://www.myget.org/)
 
 ###Current Version: 0.4.3 *(2016-11-22)*
 <table align="center" width="100%">
