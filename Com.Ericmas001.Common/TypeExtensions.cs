@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Linq;
 
-public static class TypeExtensions
+namespace Com.Ericmas001.Common
 {
-    public static TValue GetAttributeValue<TAttribute, TValue>(this Type type, Func<TAttribute, TValue> valueSelector)
-        where TAttribute : Attribute
+    public static class TypeExtensions
     {
-        var att = type.GetCustomAttributes(typeof(TAttribute), true).FirstOrDefault() as TAttribute;
-        if (att != null)
-            return valueSelector(att);
-        return default(TValue);
+        public static TValue GetAttributeValue<TAttribute, TValue>(this Type type, Func<TAttribute, TValue> valueSelector)
+            where TAttribute : Attribute
+        {
+            var att = type.GetCustomAttributes(typeof(TAttribute), true).FirstOrDefault() as TAttribute;
+            if (att != null)
+                return valueSelector(att);
+            return default(TValue);
+        }
     }
 }
