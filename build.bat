@@ -20,5 +20,6 @@ msbuild Common.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.
 mkdir Build
 mkdir Build\lib
 mkdir Build\lib\net40
+mkdir Build\lib\portable-net45+wp80+win8+wpa81
 
 %nuget% pack "Common.nuspec" -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
