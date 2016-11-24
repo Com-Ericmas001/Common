@@ -17,5 +17,6 @@
     <files>
     	<file src="Com.Ericmas001.Common\bin\$configuration$\Com.Ericmas001.Common.dll" target="lib\net40\" />
     	<file src="Com.Ericmas001.Common\bin\$configuration$\Com.Ericmas001.Common.dll" target="lib\portable-net45+wp80+win8+wpa81\" />
+    	<file src="Com.Ericmas001.Common\bin\$configuration$\Com.Ericmas001.Common.dll" target="lib\portable-net40+sl5+wp80+win8+wpa81\" />
   </files>
 </package>

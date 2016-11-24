@@ -21,5 +21,6 @@ mkdir Build
 mkdir Build\lib
 mkdir Build\lib\net40
 mkdir Build\lib\portable-net45+wp80+win8+wpa81
+mkdir Build\lib\portable-net40+sl5+wp80+win8+wpa81
 
 %nuget% pack "Common.nuspec" -NoPackageAnalysis -verbosity detailed -o Build -Version %version% -p Configuration="%config%"
