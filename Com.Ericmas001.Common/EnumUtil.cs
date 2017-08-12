@@ -50,6 +50,12 @@ namespace Com.Ericmas001.Common
             return (TAtt)m_Attributes[t][enumerationValue][attType];
         }
 
+        public static bool HasSingleFlag(this Enum enumerationValue)
+        {
+            int value = Convert.ToInt32(enumerationValue);
+            return value != 0 && (value & (value - 1)) == 0;
+        }
+
         private static readonly Dictionary<Type, Dictionary<Enum, string>> m_Abbreviations = new Dictionary<Type, Dictionary<Enum, string>>();
         private static readonly Dictionary<Type, Dictionary<Enum, string>> m_Colors = new Dictionary<Type, Dictionary<Enum, string>>();
         private static readonly Dictionary<Type, Dictionary<Enum, string>> m_DisplayNames = new Dictionary<Type, Dictionary<Enum, string>>();
