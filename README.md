@@ -10,7 +10,7 @@
             <td align="center">
             <a href="https://www.nuget.org/packages/Com.Ericmas001.Common/" target="_blank">
             Com.Ericmas001.Common <br />
-            <img src="https://raw.githubusercontent.com/NuGet/Home/master/resources/nuget.png" alt="NuGet" width=150 />
+            <img src="https://github.com/Com-Ericmas001/Common/raw/master/Resources/nuget.png" alt="NuGet" width=100 />
             </a>
             </td>
             <td align="left">
