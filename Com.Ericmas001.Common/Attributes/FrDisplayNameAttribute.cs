@@ -4,7 +4,7 @@ namespace Com.Ericmas001.Common.Attributes
 {
     public class FrDisplayNameAttribute : Attribute
     {
-        public string DisplayName { get; private set; }
+        public string DisplayName { get; }
 
         public FrDisplayNameAttribute(string displayName)
         {
